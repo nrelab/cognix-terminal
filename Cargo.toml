@@ -1,0 +1,26 @@
+[workspace]
+[package]
+name = "cognix-terminal"
+version = "0.1.0"
+edition = "2024"
+authors = ["Cognix Team"]
+license = "MIT OR Apache-2.0"
+description = "Terminal emulation library extracted from Warp"
+
+[dependencies]
+bitflags = "2.4"
+bitflags-serde-legacy = "0.1"
+serde = { version = "1.0", features = ["derive"] }
+vte = "0.13"
+unicode-width = "0.1"
+thiserror = "1.0"
+anyhow = "1.0"
+log = "0.4"
+lazy_static = "1.4"
+
+[dev-dependencies]
+unicode-segmentation = "1.11"
+
+[features]
+default = []
+test-util = []
