@@ -1,5 +1,4 @@
 // Terminal mode management
-// Adapted from Warp's terminal emulation layer
 
 use bitflags::bitflags;
 

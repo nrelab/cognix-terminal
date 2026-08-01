@@ -1,5 +1,4 @@
 //! Escape sequence definitions and encoding
-//! Adapted from Warp's terminal emulation layer
 
 /// C0 set of 7-bit control characters (from ANSI X3.4-1977)
 #[allow(non_snake_case)]

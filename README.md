@@ -15,7 +15,7 @@
 
 ## 📖 Overview
 
-`cognix-terminal` is a lightweight, standalone terminal emulation library that provides the core functionality needed to build terminal emulators, terminal-based applications, or integrate terminal emulation into existing projects. It extracts the essential terminal emulation components from Warp's codebase while removing Warp-specific dependencies.
+`cognix-terminal` is a lightweight, standalone terminal emulation library that provides the core functionality needed to build terminal emulators, terminal-based applications, or integrate terminal emulation into existing projects.
 
 ## ✨ Features
 
@@ -240,17 +240,16 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for de
 
 ## 📄 License
 
-This code is adapted from Warp's terminal emulation layer, which is licensed under Apache-2.0 and MIT. This library is dual-licensed under MIT OR Apache-2.0 at your option.
+This library is dual-licensed under MIT OR Apache-2.0 at your option.
 
 ## 🙏 Acknowledgments
 
-- **[Warp](https://www.warp.dev/)**: Original source of the terminal emulation code
 - **[Alacritty](https://github.com/alacritty/alacritty)**: VTE parsing and grid management code (Apache-2.0 licensed)
 - **[vte crate](https://github.com/alacritty/vte)**: ANSI escape sequence parsing (Apache-2.0 licensed)
 
 ## 🚧 Project Status
 
-This is an extraction of Warp's terminal emulation core. The library provides a solid foundation for terminal emulation but may not include all features present in the full Warp application. Future development may include:
+The library provides a solid foundation for terminal emulation. Future development may include:
 
 - Enhanced VTE parsing
 - More comprehensive mouse protocol support

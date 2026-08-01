@@ -14,7 +14,7 @@ fn main() {
     println!("Writing text to terminal...");
     terminal.write_str("Hello, World!\n");
     terminal.write_str("This is a demonstration of cognix-terminal.\n");
-    terminal.write_str("A terminal emulation library extracted from Warp.\n");
+    terminal.write_str("A terminal emulation library for Rust.\n");
 
     // Set some colors
     terminal.set_fg_color(Color::Named(NamedColor::Green));

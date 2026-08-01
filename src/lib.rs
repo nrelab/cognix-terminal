@@ -1,6 +1,6 @@
 //! cognix-terminal - Terminal emulation library
 //!
-//! This library provides terminal emulation capabilities extracted from Warp,
+//! This library provides terminal emulation capabilities,
 //! including VTE/ANSI parsing, grid state management, and terminal mode handling.
 
 pub mod ansi;

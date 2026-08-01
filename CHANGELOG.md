@@ -19,9 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive documentation
 
 ### Changed
-- Extracted from Warp's terminal emulation layer
-- Removed Warp-specific dependencies
-- Simplified API for standalone usage
+- Implemented terminal emulation core
+- Optimized for standalone usage
+- Simplified API for easy integration
 
 ## [0.1.0] - 2024-08-02
 

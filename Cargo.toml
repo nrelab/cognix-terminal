@@ -5,7 +5,7 @@ version = "0.1.0"
 edition = "2024"
 authors = ["Cognix Team"]
 license = "MIT OR Apache-2.0"
-description = "Terminal emulation library extracted from Warp"
+description = "Terminal emulation library for Rust"
 
 [dependencies]
 bitflags = "2.4"
