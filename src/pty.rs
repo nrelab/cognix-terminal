@@ -126,6 +126,7 @@ impl Drop for Pty {
 
 #[cfg(test)]
 mod tests {
+    #[cfg(unix)]
     use super::Pty;
 
     #[test]
