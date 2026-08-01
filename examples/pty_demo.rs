@@ -1,10 +1,15 @@
 //! PTY integration example
 //! Demonstrates spawning a shell and interacting with it
 
-use cognix_terminal::prelude::*;
-use cognix_terminal::render::Renderer;
 use std::io;
+
+#[cfg(unix)]
+use cognix_terminal::prelude::*;
+#[cfg(unix)]
+use cognix_terminal::render::Renderer;
+#[cfg(unix)]
 use std::thread;
+#[cfg(unix)]
 use std::time::Duration;
 
 #[cfg(unix)]
