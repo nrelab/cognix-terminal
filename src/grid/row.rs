@@ -314,8 +314,8 @@ impl IndexMut<RangeToInclusive<usize>> for Row {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::grid::cell::Flags;
     use crate::ansi::control_sequence_parameters::{Color, NamedColor};
+    use crate::grid::cell::Flags;
 
     #[test]
     fn test_row_new() {
@@ -345,10 +345,10 @@ mod tests {
         let mut row = Row::new(10);
         row[5].c = 'a';
         row[5].flags |= Flags::BOLD;
-        
+
         let template = Cell::from(Color::Named(NamedColor::Red));
         row.reset(&template);
-        
+
         // After reset, cells should have the template's bg color but default char
         assert_eq!(row[5].c, '\0');
         assert_eq!(row[5].bg, Color::Named(NamedColor::Red));

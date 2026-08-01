@@ -293,12 +293,15 @@ mod tests {
 
     #[test]
     fn test_cell_reset() {
-        let mut cell = Cell { c: 'a', ..Default::default() };
+        let mut cell = Cell {
+            c: 'a',
+            ..Default::default()
+        };
         cell.flags |= Flags::BOLD;
-        
+
         let template = Cell::from(Color::Named(NamedColor::Red));
         cell.reset(&template);
-        
+
         assert_eq!(cell.c, DEFAULT_CHAR);
         assert_eq!(cell.bg, Color::Named(NamedColor::Red));
     }

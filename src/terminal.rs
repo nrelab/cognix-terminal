@@ -1,10 +1,10 @@
 //! Terminal model coordinator
 //! Minimal terminal emulation implementation
 
+use crate::ansi::control_sequence_parameters::{Color, NamedColor};
 use crate::grid::{Cell, Row};
 use crate::indexing::Point;
 use crate::mode::TermMode;
-use crate::ansi::control_sequence_parameters::{Color, NamedColor};
 
 /// Terminal dimensions
 #[derive(Debug, Clone, Copy)]
@@ -60,7 +60,7 @@ impl Terminal {
     pub fn new(rows: usize, cols: usize) -> Self {
         let size = Size::new(rows, cols);
         let mut grid = Vec::with_capacity(rows);
-        
+
         for _ in 0..rows {
             grid.push(Row::new(cols));
         }
@@ -83,7 +83,7 @@ impl Terminal {
     /// Resize the terminal
     pub fn resize(&mut self, rows: usize, cols: usize) {
         self.size = Size::new(rows, cols);
-        
+
         // Adjust grid size
         if rows > self.grid.len() {
             for _ in self.grid.len()..rows {
@@ -173,7 +173,7 @@ impl Terminal {
     pub fn clear_line(&mut self) {
         let row = self.cursor.point.row;
         let col = self.cursor.point.col;
-        
+
         if row < self.grid.len() {
             let template = Cell::from(self.bg_color);
             for cell in &mut self.grid[row][col..] {
@@ -228,7 +228,7 @@ impl Terminal {
 
     fn advance_cursor(&mut self, n: usize) {
         self.cursor_forward(n);
-        
+
         // Handle line wrapping
         if self.cursor.point.col >= self.size.cols {
             self.cursor.point.col = 0;
@@ -239,7 +239,7 @@ impl Terminal {
     fn linefeed(&mut self) {
         self.cursor_down(1);
         self.carriage_return(); // Reset column to 0
-        
+
         // Scroll if needed
         if self.cursor.point.row >= self.size.rows {
             self.scroll(1);
@@ -286,7 +286,7 @@ mod tests {
     fn test_write_char() {
         let mut term = Terminal::new(10, 10);
         term.write_char('A');
-        
+
         assert_eq!(term.grid()[0][0].c, 'A');
         assert_eq!(term.cursor().point.col, 1);
     }
@@ -295,7 +295,7 @@ mod tests {
     fn test_write_str() {
         let mut term = Terminal::new(10, 10);
         term.write_str("Hello");
-        
+
         assert_eq!(term.grid()[0][0].c, 'H');
         assert_eq!(term.grid()[0][1].c, 'e');
         assert_eq!(term.cursor().point.col, 5);
@@ -305,7 +305,7 @@ mod tests {
     fn test_linefeed() {
         let mut term = Terminal::new(10, 10);
         term.write_str("Hello\nWorld");
-        
+
         assert_eq!(term.grid()[0][0].c, 'H');
         assert_eq!(term.grid()[1][0].c, 'W');
         assert_eq!(term.cursor().point.row, 1); // Cursor is on row 1 (where "World" is)
@@ -317,7 +317,7 @@ mod tests {
         let mut term = Terminal::new(10, 10);
         term.write_str("Hello");
         term.clear();
-        
+
         assert!(term.grid()[0].is_clear());
         assert_eq!(term.cursor().point, Point::zero());
     }
@@ -326,7 +326,7 @@ mod tests {
     fn test_resize() {
         let mut term = Terminal::new(10, 10);
         term.resize(20, 40);
-        
+
         assert_eq!(term.size().rows, 20);
         assert_eq!(term.size().cols, 40);
         assert_eq!(term.grid().len(), 20);

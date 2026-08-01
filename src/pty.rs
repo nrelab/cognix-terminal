@@ -25,22 +25,24 @@ impl Pty {
         // On Unix systems, we would typically use a PTY library like `pty`
         // For this minimal implementation, we'll use pipes
         let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_string());
-        
+
         let mut cmd = Command::new(&shell);
         cmd.stdin(Stdio::piped())
-           .stdout(Stdio::piped())
-           .stderr(Stdio::piped());
-        
+            .stdout(Stdio::piped())
+            .stderr(Stdio::piped());
+
         let mut child = cmd.spawn()?;
-        
-        let write = child.stdin.take().map(|stdin| {
-            Box::new(stdin) as Box<dyn Write + Send>
-        });
-        
-        let read = child.stdout.take().map(|stdout| {
-            Box::new(stdout) as Box<dyn Read + Send>
-        });
-        
+
+        let write = child
+            .stdin
+            .take()
+            .map(|stdin| Box::new(stdin) as Box<dyn Write + Send>);
+
+        let read = child
+            .stdout
+            .take()
+            .map(|stdout| Box::new(stdout) as Box<dyn Read + Send>);
+
         Ok(Self {
             child: Some(child),
             write,
@@ -64,7 +66,10 @@ impl Pty {
         if let Some(ref mut write) = self.write {
             write.write(bytes)
         } else {
-            Err(io::Error::new(io::ErrorKind::BrokenPipe, "PTY write handle closed"))
+            Err(io::Error::new(
+                io::ErrorKind::BrokenPipe,
+                "PTY write handle closed",
+            ))
         }
     }
 
@@ -73,7 +78,10 @@ impl Pty {
         if let Some(ref mut read) = self.read {
             read.read(buf)
         } else {
-            Err(io::Error::new(io::ErrorKind::BrokenPipe, "PTY read handle closed"))
+            Err(io::Error::new(
+                io::ErrorKind::BrokenPipe,
+                "PTY read handle closed",
+            ))
         }
     }
 
@@ -124,7 +132,7 @@ mod tests {
     fn test_pty_spawn() {
         let pty = Pty::spawn_shell();
         assert!(pty.is_ok());
-        
+
         let mut pty = pty.unwrap();
         assert!(pty.is_alive());
     }

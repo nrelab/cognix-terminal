@@ -1,8 +1,8 @@
 //! Basic rendering interface for terminal output
 //! Provides text-based rendering of the terminal grid
 
-use crate::grid::Row;
 use crate::ansi::control_sequence_parameters::{Color, NamedColor};
+use crate::grid::Row;
 
 /// Renderer configuration
 #[derive(Debug, Clone, Copy)]
@@ -55,7 +55,7 @@ impl Renderer {
             for (col_idx, cell) in row.iter().enumerate() {
                 let is_cursor = row_idx == cursor_row && col_idx == cursor_col;
                 let char = if cell.c == '\0' { ' ' } else { cell.c };
-                
+
                 if self.config.show_cursor && is_cursor {
                     output.push('█');
                 } else {
@@ -77,13 +77,13 @@ impl Renderer {
             for (col_idx, cell) in row.iter().enumerate() {
                 let is_cursor = row_idx == cursor_row && col_idx == cursor_col;
                 let char = if cell.c == '\0' { ' ' } else { cell.c };
-                
+
                 // Add color codes if enabled
                 if self.config.use_colors {
                     output.push_str(&self.color_to_ansi(cell.fg, true));
                     output.push_str(&self.color_to_ansi(cell.bg, false));
                 }
-                
+
                 if self.config.show_cursor && is_cursor {
                     output.push_str("\x1b[7m"); // Reverse video for cursor
                     output.push('█');
@@ -91,7 +91,7 @@ impl Renderer {
                 } else {
                     output.push(char);
                 }
-                
+
                 if self.config.use_colors {
                     output.push_str("\x1b[0m"); // Reset colors
                 }
@@ -210,7 +210,7 @@ mod tests {
     fn test_render_with_line_numbers() {
         let row = Row::new(10);
         let grid = vec![row.clone(), row.clone(), row.clone()];
-        
+
         let config = RenderConfig {
             show_line_numbers: true,
             ..Default::default()

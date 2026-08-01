@@ -121,7 +121,7 @@ mod tests {
     fn test_keyboard_modes_conversion() {
         let mut modes = KeyboardModes::DISAMBIGUATE_ESC_CODES;
         modes |= KeyboardModes::REPORT_EVENT_TYPES;
-        
+
         let term_mode: TermMode = modes.into();
         assert!(term_mode.contains(TermMode::KEYBOARD_DISAMBIGUATE_ESCAPE));
         assert!(term_mode.contains(TermMode::KEYBOARD_REPORT_EVENT_TYPES));

@@ -44,7 +44,7 @@ pub enum Mode {
     SgrMouse,
     AlternateScroll,
     UrgencyHints,
-   SwapScreen { save_cursor_and_clear_screen: bool },
+    SwapScreen { save_cursor_and_clear_screen: bool },
     BracketedPaste,
     SyncOutput,
 }
