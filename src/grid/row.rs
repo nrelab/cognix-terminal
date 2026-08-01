@@ -129,6 +129,11 @@ impl Row {
     }
 
     #[inline]
+    pub fn is_empty(&self) -> bool {
+        self.inner.is_empty()
+    }
+
+    #[inline]
     pub fn last(&self) -> Option<&Cell> {
         self.inner.last()
     }
@@ -175,8 +180,16 @@ impl Row {
     }
 
     /// Returns cells that have been dirtied since last reset
+    #[inline]
+    #[allow(dead_code)]
     pub(crate) fn dirty_cells(&self) -> &[Cell] {
-        &self.inner[0..self.occ]
+        &self.inner[..self.occ]
+    }
+
+    #[inline]
+    #[allow(dead_code)]
+    fn occ_to_index(&self, occ: usize) -> Range<usize> {
+        0..occ
     }
 
     /// Returns an iterator over the cells in this row

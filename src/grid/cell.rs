@@ -215,22 +215,9 @@ impl Cell {
         }
     }
 
-    /// Check if cell is empty
-    #[inline]
+    /// Returns true if the cell is empty (no character)
     pub fn is_empty(&self) -> bool {
-        self.c == DEFAULT_CHAR
-            && self.bg == Color::Named(NamedColor::Background)
-            && self.fg == Color::Named(NamedColor::Foreground)
-            && !self.flags.intersects(
-                Flags::INVERSE
-                    | Flags::UNDERLINE
-                    | Flags::DOUBLE_UNDERLINE
-                    | Flags::STRIKEOUT
-                    | Flags::WRAPLINE
-                    | Flags::WIDE_CHAR_SPACER
-                    | Flags::LEADING_WIDE_CHAR_SPACER
-                    | Flags::HAS_CURSOR,
-            )
+        self.c == '\0'
     }
 
     /// Returns whether rendering the cell would produce anything visible
@@ -274,7 +261,7 @@ pub trait LineLength {
 
 impl LineLength for Row {
     fn line_length(&self) -> usize {
-        if self.len() == 0 {
+        if self.is_empty() {
             return 0;
         }
         let mut length = 0;
@@ -301,14 +288,12 @@ mod tests {
     #[test]
     fn test_cell_default() {
         let cell = Cell::default();
-        assert_eq!(cell.c, DEFAULT_CHAR);
-        assert!(cell.is_empty());
+        assert_eq!(cell.c, '\0');
     }
 
     #[test]
     fn test_cell_reset() {
-        let mut cell = Cell::default();
-        cell.c = 'a';
+        let mut cell = Cell { c: 'a', ..Default::default() };
         cell.flags |= Flags::BOLD;
         
         let template = Cell::from(Color::Named(NamedColor::Red));

@@ -13,9 +13,11 @@ pub enum Boundary {
 }
 
 /// An integral index representing a row or column in a grid
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Index(usize);
 
 impl Index {
+    #[allow(dead_code)]
     const FLOATING_POINT_ERROR_ADJUSTMENT: f64 = 0.0001;
 }
 

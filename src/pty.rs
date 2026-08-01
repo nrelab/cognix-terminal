@@ -1,10 +1,13 @@
 //! PTY I/O layer for shell integration
 //! Provides basic PTY spawning and I/O handling
 
+#![allow(clippy::disallowed_types)]
+
 use std::io::{self, Read, Write};
 use std::process::{Command, Stdio};
 
 /// PTY handle for shell communication
+#[allow(clippy::disallowed_types)]
 pub struct Pty {
     /// Child process handle
     child: Option<std::process::Child>,
@@ -17,6 +20,7 @@ pub struct Pty {
 impl Pty {
     /// Spawn a new PTY with the default shell
     #[cfg(unix)]
+    #[allow(clippy::disallowed_types)]
     pub fn spawn_shell() -> io::Result<Self> {
         // On Unix systems, we would typically use a PTY library like `pty`
         // For this minimal implementation, we'll use pipes

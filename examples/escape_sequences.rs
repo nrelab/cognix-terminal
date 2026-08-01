@@ -32,16 +32,16 @@ fn main() {
     println!("Left:  0x{:02X}", EscCodes::ARROW_LEFT);
     
     println!("\n--- Building Escape Sequences ---");
-    let seq = EscCodes::build_escape_sequence(C1::CSI, b"A");
+    let seq = EscCodes::build_escape_sequence(C1::CSI, b'A');
     println!("CSI A (cursor up): {:?}", seq);
     
-    let seq = EscCodes::build_escape_sequence(C1::CSI, b"B");
+    let seq = EscCodes::build_escape_sequence(C1::CSI, b'B');
     println!("CSI B (cursor down): {:?}", seq);
     
-    let seq = EscCodes::build_escape_sequence(C1::CSI, b"C");
+    let seq = EscCodes::build_escape_sequence(C1::CSI, b'C');
     println!("CSI C (cursor forward): {:?}", seq);
     
-    let seq = EscCodes::build_escape_sequence(C1::CSI, b"D");
+    let seq = EscCodes::build_escape_sequence(C1::CSI, b'D');
     println!("CSI D (cursor back): {:?}", seq);
     
     println!("\n--- Mouse Codes ---");

@@ -1,8 +1,6 @@
 //! Escape sequence definitions and encoding
 //! Adapted from Warp's terminal emulation layer
 
-use lazy_static::lazy_static;
-
 /// C0 set of 7-bit control characters (from ANSI X3.4-1977)
 #[allow(non_snake_case)]
 #[allow(dead_code)]
@@ -75,7 +73,7 @@ pub const BRACKETED_PASTE_END: &[u8] = &[C0::ESC, b'[', b'2', b'0', b'1', b'~'];
 
 #[allow(non_snake_case)]
 pub mod EscCodes {
-    use super::{C0, C1};
+    use super::C0;
 
     pub const ARROW_UP: u8 = b'A';
     pub const ARROW_DOWN: u8 = b'B';
@@ -109,8 +107,10 @@ pub mod EscCodes {
         sequence
     }
 
-    pub fn build_escape_sequence(c1: &[u8], c: &[u8]) -> Vec<u8> {
-        build_escape_sequence_with_c1(c1, c)
+    pub fn build_escape_sequence(c1_sequence: &[u8], byte: u8) -> Vec<u8> {
+        let mut seq = c1_sequence.to_vec();
+        seq.push(byte);
+        seq
     }
 }
 
@@ -121,16 +121,22 @@ pub trait ModeProvider {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::{C0, C1, EscCodes};
 
     #[test]
     fn test_c1_to_utf8() {
         assert_eq!(C1::to_utf8(C1::CSI), "\x1b[");
     }
-
     #[test]
     fn test_build_escape_sequence() {
-        let seq = EscCodes::build_escape_sequence(C1::CSI, b"A");
+        let seq = EscCodes::build_escape_sequence(C1::CSI, b'A');
         assert_eq!(seq, vec![0x1b, b'[', b'A']);
+    }
+
+    #[test]
+    fn test_c0_codes() {
+        assert_eq!(C0::NUL, 0x00);
+        assert_eq!(C0::BEL, 0x07);
+        assert_eq!(C0::ESC, 0x1B);
     }
 }
