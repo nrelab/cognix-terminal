@@ -4,7 +4,6 @@
 #![allow(clippy::disallowed_types)]
 
 use std::io::{self, Read, Write};
-use std::process::{Command, Stdio};
 
 /// PTY handle for shell communication
 #[allow(clippy::disallowed_types)]
@@ -22,6 +21,8 @@ impl Pty {
     #[cfg(unix)]
     #[allow(clippy::disallowed_types)]
     pub fn spawn_shell() -> io::Result<Self> {
+        use std::process::{Command, Stdio};
+
         // On Unix systems, we would typically use a PTY library like `pty`
         // For this minimal implementation, we'll use pipes
         let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_string());
@@ -125,7 +126,7 @@ impl Drop for Pty {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::pty::Pty;
 
     #[test]
     #[cfg(unix)]
