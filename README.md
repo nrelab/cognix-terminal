@@ -2,7 +2,7 @@
 
 # 🖥️ cognix-terminal
 
-**A lightweight terminal emulation library extracted from Warp**
+**A lightweight terminal emulation library for Rust**
 
 [![Crates.io](https://img.shields.io/crates/v/cognix-terminal)](https://crates.io/crates/cognix-terminal)
 [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](LICENSE)
