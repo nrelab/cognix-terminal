@@ -1,75 +1,87 @@
-# cognix-terminal
+<div align="center">
 
-A terminal emulation library extracted from Warp, providing VTE/ANSI parsing, grid state management, and terminal mode handling.
+# 🖥️ cognix-terminal
 
-## Overview
+**A lightweight terminal emulation library extracted from Warp**
+
+[![Crates.io](https://img.shields.io/crates/v/cognix-terminal)](https://crates.io/crates/cognix-terminal)
+[![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](LICENSE)
+[![Rust](https://img.shields.io/badge/rust-2024%20edition-orange)](https://www.rust-lang.org)
+[![Build Status](https://github.com/nrelab/cognix-terminal/workflows/CI/badge.svg)](https://github.com/nrelab/cognix-terminal/actions)
+
+</div>
+
+---
+
+## 📖 Overview
 
 `cognix-terminal` is a lightweight, standalone terminal emulation library that provides the core functionality needed to build terminal emulators, terminal-based applications, or integrate terminal emulation into existing projects. It extracts the essential terminal emulation components from Warp's codebase while removing Warp-specific dependencies.
 
-## Features
+## ✨ Features
 
-- **VTE/ANSI Parsing**: Full support for ANSI escape sequences and control codes
-  - C0/C1 control characters
-  - CSI (Control Sequence Introducer) sequences
-  - OSC (Operating System Command) sequences
-  - Bracketed paste support
-  - Kitty keyboard protocol
+### 🎨 VTE/ANSI Parsing
+Full support for ANSI escape sequences and control codes
+- C0/C1 control characters
+- CSI (Control Sequence Introducer) sequences
+- OSC (Operating System Command) sequences
+- Bracketed paste support
+- Kitty keyboard protocol
 
-- **Grid State Management**: Efficient cell and row management for terminal display
-  - Memory-optimized cell representation (24 bytes per cell)
-  - Dirty tracking for efficient rendering
-  - Zero-width character support
-  - Hyperlink tracking
+### 📐 Grid State Management
+Efficient cell and row management for terminal display
+- Memory-optimized cell representation (24 bytes per cell)
+- Dirty tracking for efficient rendering
+- Zero-width character support
+- Hyperlink tracking
 
-- **Terminal Modes**: Comprehensive mode flags for cursor, mouse, and keyboard protocols
-  - Terminal mode bitflags (cursor visibility, line wrap, etc.)
-  - Kitty keyboard protocol modes
-  - Mouse reporting modes
+### ⚙️ Terminal Modes
+Comprehensive mode flags for cursor, mouse, and keyboard protocols
+- Terminal mode bitflags (cursor visibility, line wrap, etc.)
+- Kitty keyboard protocol modes
+- Mouse reporting modes
 
-- **PTY Integration**: Basic PTY spawning and I/O handling
-  - Shell spawning on Unix systems
-  - Read/write operations for PTY communication
-  - Process lifecycle management
+### 🔌 PTY Integration
+Basic PTY spawning and I/O handling
+- Shell spawning on Unix systems
+- Read/write operations for PTY communication
+- Process lifecycle management
 
-- **Rendering**: Text-based rendering with optional ANSI color support
-  - Plain text rendering
-  - ANSI color rendering
-  - Line number display
-  - Cursor position visualization
+### 🖼️ Rendering
+Text-based rendering with optional ANSI color support
+- Plain text rendering
+- ANSI color rendering
+- Line number display
+- Cursor position visualization
 
-## Architecture
+## 🏗️ Architecture
 
 The library is organized into several core modules:
 
-### Core Modules
+### 📦 Core Modules
 
-- **`ansi`**: VTE/ANSI parsing and control sequence handling
-  - `control_sequence_parameters`: Terminal attributes, colors, cursor styles, SGR parameters
-  - `escape_sequences`: C0/C1 control characters and escape sequence definitions
+| Module | Description |
+|--------|-------------|
+| **`ansi`** | VTE/ANSI parsing and control sequence handling |
+| → `control_sequence_parameters` | Terminal attributes, colors, cursor styles, SGR parameters |
+| → `escape_sequences` | C0/C1 control characters and escape sequence definitions |
+| **`grid`** | Terminal grid state management |
+| → `cell` | Individual cell representation with memory optimization |
+| → `row` | Row management with dirty tracking |
+| **`mode`** | Terminal mode management |
+| → `TermMode` | Bitflags for terminal modes (cursor, mouse, keyboard protocols) |
+| → `KeyboardModes` | Kitty keyboard protocol support |
+| **`indexing`** | Grid indexing utilities |
+| → `Point` | Row/column positioning |
+| → `VisiblePoint` | Visible row/column positioning |
+| **`terminal`** | Terminal model coordinator |
+| → `Terminal` | Main terminal emulation implementation |
+| → `Size`, `Cursor` | Terminal dimensions and cursor state |
+| **`pty`** | PTY I/O layer |
+| → `Pty` | Shell spawning and I/O handling |
+| **`render`** | Rendering interface |
+| → `Renderer` | Text-based terminal rendering |
 
-- **`grid`**: Terminal grid state management
-  - `cell`: Individual cell representation with memory optimization
-  - `row`: Row management with dirty tracking
-
-- **`mode`**: Terminal mode management
-  - `TermMode`: Bitflags for terminal modes (cursor, mouse, keyboard protocols)
-  - `KeyboardModes`: Kitty keyboard protocol support
-
-- **`indexing`**: Grid indexing utilities
-  - `Point`: Row/column positioning
-  - `VisiblePoint`: Visible row/column positioning
-
-- **`terminal`**: Terminal model coordinator
-  - `Terminal`: Main terminal emulation implementation
-  - `Size`, `Cursor`: Terminal dimensions and cursor state
-
-- **`pty`**: PTY I/O layer
-  - `Pty`: Shell spawning and I/O handling
-
-- **`render`**: Rendering interface
-  - `Renderer`: Text-based terminal rendering
-
-## Installation
+## 📦 📦 Installation
 
 Add to your `Cargo.toml`:
 
@@ -78,9 +90,21 @@ Add to your `Cargo.toml`:
 cognix-terminal = "0.1.0"
 ```
 
-## Usage
+Or use cargo-edit:
 
-### Basic Terminal Emulation
+```bash
+cargo add cognix-terminal
+```
+
+Or 🚀 use cargo-edit:
+
+``` 💻bash
+cargo add cognix-terminal
+```
+
+## 🚀 Usage
+
+### 💻 Basic Terminal Emulation
 
 ```rust
 use cognix_terminal::prelude::*;
@@ -103,7 +127,7 @@ terminal.write_str("Cursor at (10, 10)");
 let renderer = Renderer::new();
 let output = renderer.render(
     terminal.grid(),
-    terminal.cursor().point.row,
+   rminal.cursor().point.row,
     terminal.cursor().point.col,
 );
 println!("{}", output);
@@ -128,7 +152,7 @@ if terminal.mode().contains(TermMode::LINE_WRAP) {
 }
 ```
 
-### Color Management
+### 🎨 Color Management
 
 ```rust
 use cognix_terminal::prelude::*;
@@ -141,7 +165,7 @@ terminal.set_fg_color(Color::Named(NamedColor::Red));
 terminal.set_fg_color(Color::Spec(ColorU::new(255, 100, 100, 255)));
 
 // Indexed colors (256-color palette)
-terminal.set_fg_color(Color::Indexed(208));
+ter 🔌minal.set_fg_color(Color::Indexed(208));
 
 // Reset to defaults
 terminal.reset_colors();
@@ -189,7 +213,7 @@ cargo run --example escape_sequences
 cargo run --example cursor
 ```
 
-## Testing
+## 🧪 Testing
 
 ```bash
 # Run all tests
@@ -210,21 +234,21 @@ Build the documentation:
 cargo doc --open
 ```
 
-## Contributing
+## 🤝 Contributing
 
-Contributions are welcome! Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
-## License
+## 📄 License
 
 This code is adapted from Warp's terminal emulation layer, which is licensed under Apache-2.0 and MIT. This library is dual-licensed under MIT OR Apache-2.0 at your option.
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
-- **Warp**: Original source of the terminal emulation code
-- **Alacritty**: VTE parsing and grid management code (Apache-2.0 licensed)
-- **vte crate**: ANSI escape sequence parsing (Apache-2.0 licensed)
+- **[Warp](https://www.warp.dev/)**: Original source of the terminal emulation code
+- **[Alacritty](https://github.com/alacritty/alacritty)**: VTE parsing and grid management code (Apache-2.0 licensed)
+- **[vte crate](https://github.com/alacritty/vte)**: ANSI escape sequence parsing (Apache-2.0 licensed)
 
-## Project Status
+## 🚧 Project Status
 
 This is an extraction of Warp's terminal emulation core. The library provides a solid foundation for terminal emulation but may not include all features present in the full Warp application. Future development may include:
 
@@ -232,3 +256,13 @@ This is an extraction of Warp's terminal emulation core. The library provides a 
 - More comprehensive mouse protocol support
 - Performance optimizations
 - Additional rendering backends
+
+---
+
+<div align="center">
+
+**Built with ❤️ by the Cognix Team**
+
+[GitHub](https://github.com/nrelab/cognix-terminal) • [Crates.io](https://crates.io/crates/cognix-terminal) • [Documentation](https://docs.rs/cognix-terminal)
+
+</div>
